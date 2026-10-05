@@ -35,7 +35,6 @@ RUN apt-get update \
         python3-pip \
         python3-venv \
         ripgrep \
-        rustup \
         unzip \
         yq \
     && rm -rf /var/lib/apt/lists/*
@@ -48,10 +47,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x -o /tmp/nodesource-setup.sh
     && rm -f /tmp/nodesource-setup.sh \
     && rm -rf /var/lib/apt/lists/*
 
-RUN rustup toolchain install stable --profile minimal \
+RUN curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs -o /tmp/rustup-init.sh \
+    && sh /tmp/rustup-init.sh -y --no-modify-path --profile minimal --default-toolchain stable \
     --component rustfmt --component clippy \
     --component rust-analyzer --component rust-src \
-    && rustup default stable
+    && rm -f /tmp/rustup-init.sh
 
 # Global developer tools.
 # Project dependencies still belong in each project's .venv.
