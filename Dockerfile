@@ -45,9 +45,15 @@ RUN apt-get update \
         python3-pip \
         python3-venv \
         ripgrep \
+        rustup \
         unzip \
         yq \
     && rm -rf /var/lib/apt/lists/*
+
+RUN rustup toolchain install stable --profile minimal \
+    --component rustfmt --component clippy \
+    --component rust-analyzer --component rust-src \
+    && rustup default stable
 
 # Global developer tools.
 # Project dependencies still belong in each project's .venv.
@@ -62,6 +68,7 @@ RUN pipx install mypy \
 RUN mkdir -p /root/.codex /workspace
 
 ENV HOME=/root \
+    PATH=/root/.cargo/bin:${PATH} \
     CODEX_HOME=/root/.codex \
     TERM=xterm-256color \
     PYTHONDONTWRITEBYTECODE=1 \
