@@ -36,3 +36,4 @@ docker run --rm -it --init -v codex-home:/root/.codex -v "${PWD}:/workspace" phi
 
 - GCC, G++, Clang, Make, CMake, Ninja, and pkg-config
 - GDB, clang-format, and clang-tidy
+- ccache and lld

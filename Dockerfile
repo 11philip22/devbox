@@ -19,6 +19,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         ca-certificates \
+        ccache \
         clang \
         clang-format \
         clang-tidy \
@@ -33,6 +34,7 @@ RUN apt-get update \
         less \
         libffi-dev \
         libssl-dev \
+        lld \
         ninja-build \
         openssh-client \
         pipx \
