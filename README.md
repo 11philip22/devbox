@@ -2,7 +2,7 @@
 
 # Devbox
 
-[![Python, C, C++, Rust, JavaScript, TypeScript, Java](https://skillicons.dev/icons?i=python,c,cpp,rust,js,ts,java)](https://skillicons.dev/)
+[![Python, C, C++, Rust, JavaScript, TypeScript, Java, .NET](https://skillicons.dev/icons?i=python,c,cpp,rust,js,ts,java,dotnet)](https://skillicons.dev/)
 
 An Ubuntu 24.04 development container with Codex CLI and the tools to build, debug, and check your code.
 
@@ -52,3 +52,8 @@ docker run --rm -it --init -v codex-home:/root/.codex -v "${PWD}:/workspace" phi
 - jdb
 - jcmd, jstack, jmap, and jconsole
 - Checkstyle
+
+### .NET
+
+- .NET 10 SDK (LTS), .NET and ASP.NET Core runtimes
+- dotnet CLI, MSBuild, NuGet, and dotnet format

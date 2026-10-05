@@ -92,11 +92,16 @@ RUN pipx install mypy \
     && pipx install ruff \
     && pipx install ipython
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends dotnet-sdk-10.0 \
+    && rm -rf /var/lib/apt/lists/* \
+    && dotnet --info
+
 # Codex state/auth lives here, making it easy to persist later if desired.
 RUN mkdir -p /root/.codex /workspace
 
 ENV HOME=/root \
-    PATH=/root/.cargo/bin:${PATH} \
+    PATH=/root/.cargo/bin:/root/.dotnet/tools:${PATH} \
     CODEX_HOME=/root/.codex \
     TERM=xterm-256color \
     PYTHONDONTWRITEBYTECODE=1 \
