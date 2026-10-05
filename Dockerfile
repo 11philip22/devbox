@@ -19,12 +19,18 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         ca-certificates \
+        clang \
+        clang-format \
+        clang-tidy \
+        cmake \
         curl \
+        gdb \
         git \
         jq \
         less \
         libffi-dev \
         libssl-dev \
+        ninja-build \
         openssh-client \
         pipx \
         pkg-config \
