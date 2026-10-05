@@ -2,12 +2,7 @@
 
 # Devbox
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
-![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+[![Python, C, C++, Rust, JavaScript, TypeScript, Java](https://skillicons.dev/icons?i=python,c,cpp,rust,js,ts,java)](https://skillicons.dev/)
 
 An Ubuntu 24.04 development container with Codex CLI and the tools to build, debug, and check your code.
 
@@ -49,3 +44,11 @@ docker run --rm -it --init -v codex-home:/root/.codex -v "${PWD}:/workspace" phi
 ### JavaScript and TypeScript
 
 - Node.js 24 and npm
+
+### Java
+
+- OpenJDK 25 LTS
+- Maven and Gradle
+- jdb
+- jcmd, jstack, jmap, and jconsole
+- Checkstyle

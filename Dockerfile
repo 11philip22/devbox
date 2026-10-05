@@ -2,6 +2,9 @@ FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CODEX_VERSION=latest
+ARG MAVEN_VERSION=3.10.0
+ARG GRADLE_VERSION=9.8.0
+ARG CHECKSTYLE_VERSION=14.3.0
 
 USER root
 
@@ -26,6 +29,7 @@ RUN apt-get update \
         libssl-dev \
         lld \
         ninja-build \
+        openjdk-25-jdk \
         openssh-client \
         pipx \
         pkg-config \
@@ -38,6 +42,32 @@ RUN apt-get update \
         unzip \
         yq \
     && rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_HOME=/opt/java \
+    MAVEN_HOME=/opt/maven \
+    GRADLE_HOME=/opt/gradle
+ENV PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${GRADLE_HOME}/bin:${PATH}
+
+RUN ln -s "/usr/lib/jvm/java-25-openjdk-$(dpkg --print-architecture)" "${JAVA_HOME}" \
+    && mkdir -p "${MAVEN_HOME}" /opt/checkstyle \
+    && curl -fsSL "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -o /tmp/maven.tar.gz \
+    && curl -fsSL "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz.sha512" -o /tmp/maven.sha512 \
+    && (printf '%s  /tmp/maven.tar.gz\n' "$(cat /tmp/maven.sha512)" | sha512sum -c -) \
+    && tar -xzf /tmp/maven.tar.gz --strip-components=1 -C "${MAVEN_HOME}" \
+    && curl -fsSL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o /tmp/gradle.zip \
+    && curl -fsSL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip.sha256" -o /tmp/gradle.sha256 \
+    && (printf '%s  /tmp/gradle.zip\n' "$(cat /tmp/gradle.sha256)" | sha256sum -c -) \
+    && unzip -q /tmp/gradle.zip -d /opt \
+    && mv "/opt/gradle-${GRADLE_VERSION}" "${GRADLE_HOME}" \
+    && curl -fsSL "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-${CHECKSTYLE_VERSION}/checkstyle-${CHECKSTYLE_VERSION}-all.jar" -o /opt/checkstyle/checkstyle.jar \
+    && printf '%s\n' '#!/bin/sh' 'exec "$JAVA_HOME/bin/java" -jar /opt/checkstyle/checkstyle.jar "$@"' > /usr/local/bin/checkstyle \
+    && chmod +x /usr/local/bin/checkstyle \
+    && rm -f /tmp/maven.tar.gz /tmp/maven.sha512 /tmp/gradle.zip /tmp/gradle.sha256 \
+    && java -version \
+    && javac -version \
+    && mvn --version \
+    && gradle --no-daemon --version \
+    && checkstyle --version
 
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x -o /tmp/nodesource-setup.sh \
     && bash /tmp/nodesource-setup.sh \
