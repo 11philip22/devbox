@@ -25,7 +25,10 @@ RUN apt-get update \
         cmake \
         curl \
         gdb \
+        gh \
         git \
+        git-lfs \
+        glab \
         jq \
         less \
         libffi-dev \
@@ -41,6 +44,7 @@ RUN apt-get update \
         python3-venv \
         ripgrep \
         unzip \
+        yq \
     && rm -rf /var/lib/apt/lists/*
 
 # Global developer tools.
@@ -50,7 +54,6 @@ ENV PIPX_HOME=/opt/pipx \
 
 RUN pipx install mypy \
     && pipx install ruff \
-    && pipx install pre-commit \
     && pipx install ipython
 
 # Codex state/auth lives here, making it easy to persist later if desired.

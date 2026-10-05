@@ -23,13 +23,14 @@ docker run --rm -it --init -v codex-home:/root/.codex -v "${PWD}:/workspace" phi
 
 - Codex CLI
 - Node.js 24 and npm
-- Git and OpenSSH client
-- curl, jq, ripgrep, unzip, less, and procps
+- Git, Git LFS, and OpenSSH client
+- GitHub CLI (`gh`) and GitLab CLI (`glab`)
+- curl, jq, yq, ripgrep, unzip, less, and procps
 
 ### Python
 
 - Python 3, pip, venv, and pipx
-- mypy, Ruff, pre-commit, and IPython
+- mypy, Ruff, and IPython
 
 ### C/C++
 
