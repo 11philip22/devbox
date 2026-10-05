@@ -8,39 +8,13 @@ ARG CHECKSTYLE_VERSION=14.3.0
 
 USER root
 
+# Dependencies for the language installers.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential \
         ca-certificates \
-        ccache \
-        clang \
-        clang-format \
-        clang-tidy \
-        cmake \
         curl \
-        gdb \
-        gh \
-        git \
-        git-lfs \
-        glab \
-        jq \
-        less \
-        libffi-dev \
-        libssl-dev \
-        lld \
-        ninja-build \
         openjdk-25-jdk \
-        openssh-client \
-        pipx \
-        pkg-config \
-        procps \
-        python3 \
-        python3-dev \
-        python3-pip \
-        python3-venv \
-        ripgrep \
         unzip \
-        yq \
     && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME=/opt/java \
@@ -83,6 +57,40 @@ RUN curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs -o /tmp/rustup-in
     --component rust-analyzer --component rust-src \
     && rm -f /tmp/rustup-init.sh
 
+# Changes to this tool list preserve the language installation cache.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        ccache \
+        clang \
+        clang-format \
+        clang-tidy \
+        cmake \
+        dotnet-sdk-10.0 \
+        gdb \
+        gh \
+        git \
+        git-lfs \
+        glab \
+        jq \
+        less \
+        libffi-dev \
+        libssl-dev \
+        lld \
+        ninja-build \
+        openssh-client \
+        pipx \
+        pkg-config \
+        procps \
+        python3 \
+        python3-dev \
+        python3-pip \
+        python3-venv \
+        ripgrep \
+        yq \
+    && rm -rf /var/lib/apt/lists/* \
+    && dotnet --info
+
 # Global developer tools.
 # Project dependencies still belong in each project's .venv.
 ENV PIPX_HOME=/opt/pipx \
@@ -91,11 +99,6 @@ ENV PIPX_HOME=/opt/pipx \
 RUN pipx install mypy \
     && pipx install ruff \
     && pipx install ipython
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends dotnet-sdk-10.0 \
-    && rm -rf /var/lib/apt/lists/* \
-    && dotnet --info
 
 # Codex state/auth lives here, making it easy to persist later if desired.
 RUN mkdir -p /root/.codex /workspace
