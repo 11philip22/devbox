@@ -1,19 +1,9 @@
-FROM node:24-bookworm-slim AS codex
-
-ARG CODEX_VERSION=latest
-
-RUN npm install --global "@openai/codex@${CODEX_VERSION}" \
-    && npm cache clean --force
-
-
 FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG CODEX_VERSION=latest
 
 USER root
-
-# Bring Node + Codex CLI over from the Node image.
-COPY --from=codex /usr/local/ /usr/local/
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -48,6 +38,14 @@ RUN apt-get update \
         rustup \
         unzip \
         yq \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x -o /tmp/nodesource-setup.sh \
+    && bash /tmp/nodesource-setup.sh \
+    && apt-get install -y --no-install-recommends nodejs \
+    && npm install --global "@openai/codex@${CODEX_VERSION}" \
+    && npm cache clean --force \
+    && rm -f /tmp/nodesource-setup.sh \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rustup toolchain install stable --profile minimal \
