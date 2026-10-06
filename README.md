@@ -15,11 +15,20 @@ docker pull philipwold/devbox:latest
 docker run --rm -it --init -v codex-home:/root/.codex -v "${PWD}:/workspace" philipwold/devbox:latest
 ```
 
+### Docker socket (optional)
+
+Mount a Docker socket to use the host's Docker Engine. Devbox starts normally without it.
+
+```powershell
+docker run --rm -it --init -v /var/run/docker.sock:/var/run/docker.sock -v codex-home:/root/.codex -v "${PWD}:/workspace" philipwold/devbox:latest
+```
+
 ## Tools
 
 ### Generic
 
 - Codex CLI
+- Docker Engine, Buildx, and Docker Compose
 - Git, Git LFS, and OpenSSH client
 - GitHub CLI (`gh`) and GitLab CLI (`glab`)
 - curl, jq, yq, ripgrep, unzip, less, and procps

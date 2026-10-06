@@ -66,6 +66,9 @@ RUN apt-get update \
         clang-format \
         clang-tidy \
         cmake \
+        docker-buildx \
+        docker-compose-v2 \
+        docker.io \
         dotnet-sdk-10.0 \
         gdb \
         gh \
