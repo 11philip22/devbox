@@ -75,6 +75,7 @@ RUN apt-get update \
         git \
         git-lfs \
         glab \
+        golang-go \
         jq \
         less \
         libffi-dev \
@@ -107,7 +108,7 @@ RUN pipx install mypy \
 RUN mkdir -p /root/.codex /workspace
 
 ENV HOME=/root \
-    PATH=/root/.cargo/bin:/root/.dotnet/tools:${PATH} \
+    PATH=/root/.cargo/bin:/root/.dotnet/tools:/root/go/bin:${PATH} \
     CODEX_HOME=/root/.codex \
     TERM=xterm-256color \
     PYTHONDONTWRITEBYTECODE=1 \

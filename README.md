@@ -2,7 +2,7 @@
 
 # Devbox
 
-[![Python, C, C++, Rust, JavaScript, TypeScript, Java, .NET](https://skillicons.dev/icons?i=python,c,cpp,rust,js,ts,java,dotnet)](https://skillicons.dev/)
+[![Docker, Python, C, C++, Rust, Go, JavaScript, TypeScript, Java, .NET](https://skillicons.dev/icons?i=docker,python,c,cpp,rust,go,js,ts,java,dotnet)](https://skillicons.dev/)
 
 An Ubuntu 24.04 development container with Codex CLI and the tools to build, debug, and check your code.
 
@@ -49,6 +49,11 @@ docker run --rm -it --init -v /var/run/docker.sock:/var/run/docker.sock -v codex
 - rustup, rustc, and Cargo
 - rustfmt and Clippy
 - rust-analyzer
+
+### Go
+
+- Go compiler and gofmt
+- go build, go test, and go vet
 
 ### JavaScript and TypeScript
 
